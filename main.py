@@ -41,7 +41,7 @@ CCAvg = st.number_input("Jumlah Pengeluaran Bulanan (dalam Rupiah)", min_value=0
 st.caption("contoh penulisan yang benar 30000000 contoh penulisan yang salah 30.000.000")
 Mortgage = st.number_input("Jumlah Hipotek (dalam Rupiah)", min_value=0, max_value=100000000)
 st.caption("Nilai barang yang dijadikan jaminan nasabah kepada bank")
-
+BiChecking = st.selectbox("Apakah Nasabah memiliki hutang macet ?", options=[0, 1])
 # Create a DataFrame from user input
 input_data = pd.DataFrame({
     'Age': [Age],
@@ -65,13 +65,17 @@ input_data = input_data.astype(float).fillna(0)
 # Make prediction
 if st.button("Submit"):
     try:
-        prediction = loaded_model.predict(input_data)
-        prediction_proba = loaded_model.predict_proba(input_data)
-
-        if prediction[0] == 1:
-            st.success(f"Nasabah layak diberikan pinjaman dengan nilai prediksi {prediction_proba[0][1] * 100:.2f}%")
+        # Check BiChecking before making predictions
+        if BiChecking == 0:
+            st.error("Nasabah belum layak diberikan pinjaman berdasarkan Bi Checking.")
         else:
-            st.error(f"Nasabah belum layak diberikan pinjaman dengan nilai prediksi {prediction_proba[0][0] * 100:.2f}%")
+            prediction = loaded_model.predict(input_data)
+            prediction_proba = loaded_model.predict_proba(input_data)
+
+            if prediction[0] == 1:
+                st.success(f"Nasabah layak diberikan pinjaman dengan nilai prediksi {prediction_proba[0][1] * 100:.2f}%")
+            else:
+                st.error(f"Nasabah belum layak diberikan pinjaman dengan nilai prediksi {prediction_proba[0][0] * 100:.2f}%")
     except ValueError as e:
         st.error(f"Terjadi kesalahan pada input data: {e}")
     except Exception as e:
