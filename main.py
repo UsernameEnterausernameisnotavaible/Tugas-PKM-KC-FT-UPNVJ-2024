@@ -36,9 +36,9 @@ CreditCard = st.selectbox("Apakah memiliki Kartu Kredit?", options=[0, 1])
 st.caption(":red[**0**] :  Tidak Ada;  :red[**1**] :  Ada")
 
 Income = st.number_input("Jumlah Pendapatan Bulanan (dalam Rupiah)", min_value=0, max_value=500000000)
-
+st.caption("contoh penulisan yang benar 30000000 contoh penulisan yang salah 30.000.000")
 CCAvg = st.number_input("Jumlah Pengeluaran Bulanan (dalam Rupiah)", min_value=0, max_value=100000000)
-
+st.caption("contoh penulisan yang benar 30000000 contoh penulisan yang salah 30.000.000")
 Mortgage = st.number_input("Jumlah Hipotek (dalam Rupiah)", min_value=0, max_value=100000000)
 st.caption("Nilai barang yang dijadikan jaminan nasabah kepada bank")
 
