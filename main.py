@@ -66,7 +66,7 @@ input_data = input_data.astype(float).fillna(0)
 if st.button("Submit"):
     try:
         # Check BiChecking before making predictions
-        if BiChecking == 0:
+        if BiChecking == 1:
             st.error("Nasabah belum layak diberikan pinjaman berdasarkan Bi Checking.")
         else:
             prediction = loaded_model.predict(input_data)
